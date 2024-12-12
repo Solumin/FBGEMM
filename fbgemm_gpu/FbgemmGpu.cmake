@@ -279,13 +279,13 @@ foreach(optimizer ${SSD_OPTIMIZERS})
       "gen_embedding_backward_${optimizer}_ssd_${wdesc}_kernel_cta.cu"
       "gen_embedding_backward_${optimizer}_ssd_${wdesc}_kernel_warp.cu")
   endforeach()
+
   foreach(wdesc weighted unweighted)
     list(APPEND gen_gpu_kernel_source_files
       "gen_embedding_backward_${optimizer}_ssd_${wdesc}_vbe_cuda.cu"
       "gen_embedding_backward_${optimizer}_ssd_${wdesc}_vbe_kernel_cta.cu"
       "gen_embedding_backward_${optimizer}_ssd_${wdesc}_vbe_kernel_warp.cu")
   endforeach()
-
 endforeach()
 
 list(APPEND gen_defused_optim_py_files
@@ -407,8 +407,12 @@ set(fbgemm_gpu_sources_gpu_gen
   ${gen_gpu_host_source_files}
   ${gen_defused_optim_source_files})
 
+set(fbgemm_gpu_sources_hip_gen
+  ${gen_hip_kernel_source_files})
+
 handle_genfiles_rocm(fbgemm_gpu_sources_cpu_gen)
 handle_genfiles_rocm(fbgemm_gpu_sources_gpu_gen)
+handle_genfiles_rocm(fbgemm_gpu_sources_hip_gen)
 
 
 ################################################################################

@@ -35,6 +35,14 @@ handle_genfiles_rocm(gen_gpu_files_training)
 
 
 ################################################################################
+# FBGEMM_GPU Generated HIP-Specific Sources
+################################################################################
+
+get_tbe_sources_list(gen_hip_files_training)
+handle_genfiles_rocm(gen_hip_files_training)
+
+
+################################################################################
 # TBE Training Targets
 ################################################################################
 
@@ -130,6 +138,8 @@ gpu_cpp_library(
   GPU_SRCS
     ${gen_gpu_files_training}
     ${gen_gpu_files_forward_split}
+  HIP_SPECIFIC_SRCS
+    ${gen_hip_files_training}
   GPU_FLAGS
     ${TORCH_CUDA_OPTIONS}
   DEPS
